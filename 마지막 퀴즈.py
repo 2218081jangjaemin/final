@@ -12,7 +12,11 @@ scatter_matrix(data)
 plt.savefig('./result/scatter_matrix.png')
 X = data.iloc[:, 0:4]
 Y = data.iloc[:, 4]
-model = tree.DecisionTreeClassifier()
-kfold = KFold(n_splits=10, random_state=123)
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+kfold = KFold(n_splits=10)
 results = cross_val_score(model, X, Y, cv=kfold, scoring='accuracy')
+print('Accuracy: %.3f%% (%.3f%%)' % (results.mean()*100.0, results.std()*100.0))
 print('Accuracy: %.3f%% (%.3f%%)' % (results.mean()*100.0, results.std()*100.0))
